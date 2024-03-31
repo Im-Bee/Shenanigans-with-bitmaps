@@ -7,13 +7,14 @@
 void Application::Initialize()
 {
     std::wcout << L"Availble commands\n\
-        - [q] for quit\n\
-        - [load / l] to load a file from path\n\
-        - [save / s] to save file in output dir\n\
-        - [color] to color whole\n\
-        - [lookat] to view file as dec \n\
-        - [gray] to make file gray scale \n\
-        - [negative] to make file negative\n";
+        - 'q' to quit\n\
+        - 'load' / 'l' to load a .bmp file from path\n\
+        - 'save' / 's' to save a .bmp file in output dir ('./Output/FILE.bmp')\n\
+        - 'color' to color whole image\n\
+        - 'lookat' to view image in hex editor\n\
+        - 'gray' to make image gray scale\n\
+        - 'prt' to print image to terminal\n\
+        - 'negative' to make image negative\n";
 
     FindPathToItself();
     CreateSaveDir();

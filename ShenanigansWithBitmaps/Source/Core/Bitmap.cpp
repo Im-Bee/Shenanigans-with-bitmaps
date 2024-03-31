@@ -204,6 +204,15 @@ void SWBitmaps::Bitmap::DeleteShadows()
 // -----------------------------------------------------------------------------
 void Bitmap::LoadFromPath()
 {
+    if (m_Path.find(L'.') != std::wstring::npos)
+    {
+        wchar_t fileExt[8];
+        wcscpy_s(fileExt, m_Path.substr(m_Path.find_last_of('.')).c_str());
+        _wcslwr_s(fileExt);
+        if (!wcscmp(fileExt, L"bmp"))
+            return;
+    }
+
     std::ifstream file(m_Path,
         std::ios_base::binary | std::ios_base::in | std::ios_base::ate);
 
