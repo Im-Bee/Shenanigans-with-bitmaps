@@ -99,7 +99,13 @@ void Application::Update()
     if (r == L"prt")
     {
         SWB_IS_BITMAP;
-        SWHexEditor::Session::PrintImgFromGrayScale(m_pLoadedBitmap);
+        std::wstring w;
+        std::cout << "Width:";
+        std::wcin >> w;
+        std::wstring b;
+        std::cout << "Clamp [y/n]:";
+        std::wcin >> b;
+        SWHexEditor::Session::PrintImgFromGrayScale(m_pLoadedBitmap, std::stoi(w), std::tolower(b[0]) == 'y' ? true : false);
         return;
     }
     if (r == L"scl")

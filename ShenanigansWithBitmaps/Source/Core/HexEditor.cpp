@@ -29,17 +29,17 @@ void SWHexEditor::Session::PrintImgFromGrayScale()
         throw;
     }
 
-    PrintImgFromGrayScale(m_pTargetBitmap);
+    PrintImgFromGrayScale(m_pTargetBitmap, 90, true);
 }
 
 // ----------------------------------------------------------------------------
-void SWHexEditor::Session::PrintImgFromGrayScale(IN std::shared_ptr<SWBitmaps::Bitmap> target)
+void SWHexEditor::Session::PrintImgFromGrayScale(IN std::shared_ptr<SWBitmaps::Bitmap> target, const uint8_t& width, const bool& clamp)
 {
     std::vector<uint8_t> uPixelsForConsole;
 
     // Scale down the image -----------
 
-    const uint8_t uNewWidth = 90;
+    const uint8_t uNewWidth = width;
     // New height scaled to original aspect ratio
     const uint8_t uNewHeight = static_cast<uint8_t>(uNewWidth * ((long double)target->m_Header.Height / target->m_Header.Width));
 
@@ -67,9 +67,18 @@ void SWHexEditor::Session::PrintImgFromGrayScale(IN std::shared_ptr<SWBitmaps::B
     // Print out ----------------------
 
     const std::string colors = " .:-=o%@$";
+    long double fMin, fMax;
     const uint8_t uIndexSizeOfColors = static_cast<uint8_t>(colors.size() - 1);
-    const long double fMin = *std::min_element(uPixelsForConsole.begin(), uPixelsForConsole.end());
-    const long double fMax = *std::max_element(uPixelsForConsole.begin(), uPixelsForConsole.end());
+    if (clamp)
+    {
+        fMin = *std::min_element(uPixelsForConsole.begin(), uPixelsForConsole.end());
+        fMax = *std::max_element(uPixelsForConsole.begin(), uPixelsForConsole.end());
+    }
+    else
+    {
+        fMin = 0;
+        fMax = 255;
+    }
     // Reused global index for tracking width of the image
     // Starting from 1 to not add additional '\n'
     uGlobalIndex = 1;

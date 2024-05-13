@@ -34,7 +34,7 @@ namespace SWHexEditor
 
         void PrintImgFromGrayScale();
 
-        static void PrintImgFromGrayScale(IN std::shared_ptr<SWBitmaps::Bitmap> target);
+        static void PrintImgFromGrayScale(IN std::shared_ptr<SWBitmaps::Bitmap> target, const uint8_t& width, const bool& clamp);
 
 
     public:
